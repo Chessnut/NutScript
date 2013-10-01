@@ -146,7 +146,7 @@ local PANEL = {}
 
 	function PANEL:Think()
 		if (IsValid(self.player)) then
-			self.ping:SetText(self.player:Ping())
+			self.ping:SetText(self.player:Ping() .. "ms") -- #Ryan Kingstone@ - Added 'ms' at the end for neatness.
 		end
 	end
 
