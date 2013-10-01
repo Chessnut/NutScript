@@ -35,7 +35,7 @@ nut.command.Register({
 				nut.util.Notify("This door has already been purchased.", client)
 			end
 		else
-			nut.util.Notify("You are not looking at a valid door.", client)
+			nut.util.Notify("You are not looking at a door.", client)
 		end
 	end
 }, "doorbuy")
@@ -62,7 +62,7 @@ nut.command.Register({
 				nut.util.Notify("You do not own this door.", client)
 			end
 		else
-			nut.util.Notify("You are not looking at a valid door.", client)
+			nut.util.Notify("You are not looking at a door.", client)
 		end
 	end
 }, "doorsell")
@@ -90,7 +90,7 @@ nut.command.Register({
 				nut.util.Notify("You do not own this door.", client)
 			end
 		else
-			nut.util.Notify("You are not looking at a valid door.", client)
+			nut.util.Notify("You are not looking at a door.", client)
 		end
 	end
 }, "doortitle")
@@ -116,7 +116,7 @@ nut.command.Register({
 			PLUGIN:DoorSetUnownable(entity)
 			nut.util.Notify("You have added an unownable door.", client)
 		else
-			nut.util.Notify("You are not looking at a valid door.", client)
+			nut.util.Notify("You are not looking at a door.", client)
 		end
 	end
 }, "doorsetunownable")
@@ -136,7 +136,7 @@ nut.command.Register({
 			PLUGIN:DoorSetOwnable(entity)
 			nut.util.Notify("You have made this door ownable.", client)
 		else
-			nut.util.Notify("You are not looking at a valid door.", client)
+			nut.util.Notify("You are not looking at a door.", client)
 		end
 	end
 }, "doorsetownable")
