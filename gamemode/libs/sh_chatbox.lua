@@ -121,6 +121,10 @@ do
 	nut.chat.Register("ooc", {
 		onChat = function(speaker, text)
 			chat.AddText(Color(250, 40, 40), "[OOC] ", speaker, color_white, ": "..text)
+			
+		if (LocalPlayer():IsAdmin()) then
+			chat.AddText(Color(40, 250, 40), "[ADMIN]", speaker, color_white, ": "..text)
+			end
 		end,
 		prefix = {"//", "/ooc"},
 		deadCanTalk = true,
