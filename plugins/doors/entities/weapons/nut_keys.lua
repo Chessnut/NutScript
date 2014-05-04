@@ -37,6 +37,7 @@ SWEP.WorldModel = ""
 SWEP.FireWhenLowered = true
 SWEP.DrawViewModel = false
 SWEP.UseHands = false
+SWEP.LowerAngles = Angle(0, 5, -45)
 SWEP.HoldType = "normal"
 
 function SWEP:PreDrawViewModel(viewModel, weapon, client)
