@@ -31,13 +31,13 @@ SWEP.Secondary.DefaultClip = 0
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = ""
 
-SWEP.ViewModel = Model("models/weapons/v_fists.mdl")
+SWEP.ViewModel = Model("models/weapons/c_arms_animations.mdl")
 SWEP.WorldModel = ""
 
 SWEP.FireWhenLowered = true
 SWEP.DrawViewModel = false
-SWEP.UseHands = true
-SWEP.LowerAngles = Angle(0, 5, -14)
+SWEP.UseHands = false
+SWEP.LowerAngles = Angle(0, 5, -45)
 SWEP.HoldType = "normal"
 
 function SWEP:PreDrawViewModel(viewModel, weapon, client)
