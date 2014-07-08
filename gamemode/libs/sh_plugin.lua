@@ -204,7 +204,7 @@ if (CLIENT) then
 		data:AddHelp("Plugins", function()
 			local html = ""
 
-			for k, v in SortedPairs(nut.plugin.buffer) do
+			for k, v in nut.util.SortedPairs(nut.plugin.buffer) do
 				html = html.."<p><b>"..(v.name or k).."</b><br /><i>Author:</i> "..(v.author or "Anonymous").."<br /><i>Description:</i> "..v.desc or nut.lang.Get("no_desc").."</p>"
 			end
 

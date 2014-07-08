@@ -496,7 +496,7 @@ if (SERVER) then
 		
 		nut.db.FetchTable("steamid = "..(client:SteamID64() or 0)..sameSchema(), "id", function(_, data)
 			if (IsValid(client)) then
-				for k, v in SortedPairs(data) do
+				for k, v in nut.util.SortedPairs(data) do
 					nut.char.SendInfo(client, v.id)
 				end
 

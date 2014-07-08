@@ -42,7 +42,7 @@ local PANEL = {}
 			self:SetHTML(prefix..html)
 		end
 
-		for k, v in SortedPairs(help) do
+		for k, v in nut.util.SortedPairs(help) do
 			local node = self.tree:AddNode(k)
 			node.Icon:SetImage(v[2])
 			node.DoClick = function()

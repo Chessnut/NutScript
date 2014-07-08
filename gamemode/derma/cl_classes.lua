@@ -9,7 +9,7 @@ local PANEL = {}
 		self.list:Dock(FILL)
 		self.list:SetDrawBackground(true)
 
-		for k, v in SortedPairs(nut.class.GetByFaction(LocalPlayer():Team())) do
+		for k, v in nut.util.SortedPairs(nut.class.GetByFaction(LocalPlayer():Team())) do
 			if (LocalPlayer():CharClass() != k and v:PlayerCanJoin(LocalPlayer())) then
 				local item = self.list:Add("nut_ClassItem")
 				item:DockMargin(3, 3, 3, 0)

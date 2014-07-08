@@ -86,7 +86,7 @@ local PANEL = {}
 
 		local count = 0
 
-		for k, v in SortedPairs(nut.class.GetByFaction(LocalPlayer():Team())) do
+		for k, v in nut.util.SortedPairs(nut.class.GetByFaction(LocalPlayer():Team())) do
 			if (LocalPlayer():CharClass() != k and v:PlayerCanJoin(LocalPlayer())) then
 				count = count + 1
 			end
