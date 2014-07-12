@@ -172,7 +172,7 @@ else
 		data:AddHelp("Commands", function(tree)
 			local html = ""
 
-			for k, v in SortedPairs(nut.command.buffer) do
+			for k, v in nut.util.SortedPairs(nut.command.buffer) do
 				if (!v.category) then
 					if (v.adminOnly and !LocalPlayer():IsAdmin()) then
 						continue
@@ -197,7 +197,7 @@ else
 		end, "icon16/comments.png")
 
 		data:AddCallback("Commands", function(node, body)
-			for k, v in SortedPairs(nut.command.buffer) do
+			for k, v in nut.util.SortedPairs(nut.command.buffer) do
 				if (v.category) then
 					if (v.adminOnly and !LocalPlayer():IsAdmin()) then
 						continue

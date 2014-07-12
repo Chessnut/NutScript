@@ -28,7 +28,7 @@ local PANEL = {}
 				table.insert(categories[v.category], v)
 			end
 
-			for _, items in SortedPairs(categories) do
+			for _, items in nut.util.SortedPairs(categories) do
 				for _, itemTable in SortedPairsByMemberValue(items, "name") do
 					local class = itemTable.uniqueID
 					local allowed = true

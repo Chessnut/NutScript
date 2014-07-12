@@ -763,7 +763,7 @@ do
 			end
 
 			local menu = DermaMenu()
-				for k, v in SortedPairs(itemTable.functions) do
+				for k, v in nut.util.SortedPairs(itemTable.functions) do
 					if (v.shouldDisplay and v.shouldDisplay(itemTable, item.data) == false) then
 						continue
 					end
@@ -803,7 +803,7 @@ do
 			end
 
 			local menu = DermaMenu()
-				for k, v in SortedPairs(itemTable.functions) do
+				for k, v in nut.util.SortedPairs(itemTable.functions) do
 					if (v.shouldDisplay and v.shouldDisplay(itemTable, entity:GetData(), entity) == false) then
 						continue
 					end

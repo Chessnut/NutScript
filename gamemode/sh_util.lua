@@ -39,6 +39,63 @@ function nut.util.Include(fileName, state)
 end
 
 --[[
+	Copied from https://github.com/garrynewman/garrysmod
+]]--
+local function fnPairsSorted( pTable, Index )
+
+if ( Index == nil ) then
+
+Index = 1
+
+else
+
+for k, v in pairs( pTable.__SortedIndex ) do
+if ( v == Index ) then
+Index = k + 1
+break
+end
+end
+
+end
+
+local Key = pTable.__SortedIndex[ Index ]
+if ( !Key ) then
+pTable.__SortedIndex = nil
+return
+end
+
+Index = Index + 1
+
+return Key, pTable[ Key ]
+
+end
+
+--[[
+	Purpose: Iterates over a table sorted by key. Doesn't recursively copy tables,
+	unlike the default SortedPairs.
+--]]
+function nut.util.SortedPairs(originalTable, Desc)
+	copiedTable = {}
+	for k, v  in pairs(originalTable) do
+		copiedTable[k] = v
+	end
+
+	local SortedIndex = {}
+	for k, v in pairs( copiedTable ) do
+		table.insert( SortedIndex, k )
+	end
+
+	if ( Desc ) then
+		table.sort( SortedIndex, function(a,b) return a>b end )
+	else
+		table.sort( SortedIndex )
+	end
+	copiedTable.__SortedIndex = SortedIndex
+
+	return fnPairsSorted, copiedTable, nil
+end
+
+--[[
 	Purpose: Gets the appropriate alpha value for colors using two vectors.
 --]]
 function nut.util.GetAlphaFromDist(position, goal, maxDistance, maxAlpha)

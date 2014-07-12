@@ -35,7 +35,7 @@ else
 		data:AddHelp("Flags", function()
 			local html = ""
 
-			for k, v in SortedPairs(nut.flag.buffer) do
+			for k, v in nut.util.SortedPairs(nut.flag.buffer) do
 				local color = "<font color=\"red\">&#10008;"
 
 				if (LocalPlayer():HasFlag(k)) then
