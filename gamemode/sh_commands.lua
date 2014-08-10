@@ -634,7 +634,7 @@ nut.command.Register({
 
 		if (IsValid(target)) then
 			for k, v in SortedPairs(nut.item.GetAll()) do
-				if (nut.util.StringMatches(find, v.uniqueID)) then
+				if (find == v.uniqueID) then
 					target:UpdateInv(v.uniqueID, amount, nil, true)
 
 					nut.util.Notify("You have given "..target:Name().." "..amount.." "..v.name.." item(s).", client)
