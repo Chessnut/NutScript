@@ -11,9 +11,6 @@ if CLIENT then
 
 	local commands = nut.command.buffer
 
-	local panel_pos_x, panel_pos_y = nut.chat.panel.frame:GetPos()
-	local panel_tall = nut.chat.panel.frame:GetTall()
-
 	function PLUGIN:HUDPaint()
 		if me:IsTyping() then
 			if string.match(chat_text, "/") then
@@ -22,6 +19,9 @@ if CLIENT then
 
 				for k,v in pairs(commands) do
 					if string.match(k, chat_text:sub(2)) and counter < 4 then
+						local panel_pos_x, panel_pos_y = nut.chat.panel.frame:GetPos()
+						local panel_tall = nut.chat.panel.frame:GetTall()
+
 						if counter == 0 then
 							cur_suggest = k
 						end
