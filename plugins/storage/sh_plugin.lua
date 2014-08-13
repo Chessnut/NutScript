@@ -5,7 +5,7 @@ PLUGIN.author = "Chessnut and rebel1324"
 PLUGIN.desc = "Adds storage items that can store items."
 
 nut.lang.Add("lock_success", "Successfully Locked the Container.")
-nut.lang.Add("lock_locked", "The contianer is already locked.")
+nut.lang.Add("lock_locked", "The container is already locked.")
 nut.lang.Add("lock_wrong", "You've entered wrong password.")
 nut.lang.Add("lock_try", "The container is locked.")
 nut.lang.Add("lock_locked", "The container is locked.")
