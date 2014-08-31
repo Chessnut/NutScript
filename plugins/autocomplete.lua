@@ -19,7 +19,7 @@ if (CLIENT) then
 				local height = frame:GetTall()
 				
 				for k,v in pairs(nut.command.buffer) do
-					if (chatText:sub(2, #k):lower() == k and counter < 4) then
+					if (chatText:sub(2, #k + 1):lower() == k and counter < 4) then
 						draw.SimpleTextOutlined("/"..k, "nut_ChatFont", x + 9, (y + tall - 6) + spacer, textColor, 0, 0, 1, outline)
 						
 						spacer = spacer + 17
