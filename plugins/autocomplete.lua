@@ -1,27 +1,26 @@
 local PLUGIN = PLUGIN
-PLUGIN.name = "Command autocomplete"
-PLUGIN.author = "Atebite"
+PLUGIN.name = "Auto-complete"
+PLUGIN.author = "Atebite and Chessnut"
 PLUGIN.desc = "Adds autocompletion for chat commands."
 
-if CLIENT then
-	local me = LocalPlayer()
-
-	local chat_text = ""
-
-	local commands = nut.command.buffer
-
+if (CLIENT) then
+	local chatText = ""
+	local textColor = Color(231, 231, 231)
+	local outline = Color(0, 0, 0, 150)
+	
 	function PLUGIN:HUDPaint()
-		if me:IsTyping() then
-			if string.match(chat_text, "/") then
+		local frame = nut.chat.panel.frame
+		
+		if (IsValid(frame) and LocalPlayer():IsTyping()) then
+			if (chatText:sub(1, 1) == "/") then
 				local spacer = 0
 				local counter = 0
-
-				for k,v in pairs(commands) do
-					if string.match(k, chat_text:sub(2)) and counter < 4 then
-						local panel_pos_x, panel_pos_y = nut.chat.panel.frame:GetPos()
-						local panel_tall = nut.chat.panel.frame:GetTall()
-
-						draw.SimpleTextOutlined("/"..k, "nut_ChatFont", panel_pos_x + 9, (panel_pos_y + panel_tall - 6) + spacer, Color(231, 231, 231), 0, 0, 1, Color(0, 0, 0, 150))
+				local x, y = frame:GetPos()
+				local height = frame:GetTall()
+				
+				for k,v in pairs(nut.command.buffer) do
+					if (chatText:sub(2, #k):lower() == k and counter < 4) then
+						draw.SimpleTextOutlined("/"..k, "nut_ChatFont", x + 9, (y + tall - 6) + spacer, textColor, 0, 0, 1, outline)
 						
 						spacer = spacer + 17
 						counter = counter + 1
@@ -31,11 +30,11 @@ if CLIENT then
 		end
 	end
 
-	function PLUGIN:ChatTextChanged(txt)
-		chat_text = txt
+	function PLUGIN:ChatTextChanged(text)
+		chatText = text
 	end
 
 	function PLUGIN:FinishChat()
-		chat_text = ""
+		chatText = ""
 	end
 end
