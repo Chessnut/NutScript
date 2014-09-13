@@ -1,7 +1,7 @@
 LANGUAGE = {
-	loading = "Loading",
-	dbError = "Database connection failed",
-	unknown = "Unknown",
+	loading = "Загрузка",
+	dbError = "банк данных подключение удалось",
+	unknown = "незнакомец",
 	noDesc = "No description available",
 	create = "Create",
 	createTip = "Create a new character to play as.",
