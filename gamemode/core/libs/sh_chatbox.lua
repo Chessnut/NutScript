@@ -192,7 +192,7 @@ do
 
 		-- Whisper chat.
 		nut.chat.register("w", {
-			format = "%s whipsers \"%s\"",
+			format = "%s whispers \"%s\"",
 			onGetColor = function(speaker, text)
 				local color = nut.chat.classes.ic.onGetColor(speaker, text)
 
