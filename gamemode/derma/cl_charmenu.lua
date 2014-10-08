@@ -389,12 +389,14 @@ local PANEL = {}
 						end
 
 						y = y + 280
-						AddHeader("attribs")
+						local attribsHeader = AddHeader("attribs")
 
 						self.attribs = {}
 
 						local pointsLeft = nut.config.startingPoints
 						local activeBar
+						attribsHeader:SetText(nut.lang.Get("attribs").." ("..pointsLeft.."/"..pointsLeft.." points left)")
+						attribsHeader:SizeToContents()
 
 						for k, v in ipairs(nut.attribs.buffer) do
 							local bar = self.content:Add("nut_AttribBar")
@@ -405,6 +407,8 @@ local PANEL = {}
 							bar:SetToolTip(v.desc or "No description available.")
 							bar.OnChanged = function(panel, hindered)
 								pointsLeft = pointsLeft - (hindered and -1 or 1)
+								attribsHeader:SetText(string.gsub(attribsHeader:GetText(), hindered and pointsLeft - 1 or pointsLeft + 1, pointsLeft, 1))
+								attribsHeader:SizeToContents()
 							end
 							bar.CanChange = function(panel, hindered)
 								if (hindered) then return true end
