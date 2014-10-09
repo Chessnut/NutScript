@@ -19,7 +19,7 @@ if (SERVER) then
 		Purpose: Checks if the command exists and determines what should be returned to the
 		PlayerSay hook.
 	--]]
-	function nut.command.RunCommand(client, action, arguments, noMsgOnFail)
+	function nut.command.RunCommand(client, action, arguments, noMsgOnFail, starArg)
 		local commandTable = nut.command.buffer[action]
 		local echo = false
 
@@ -51,7 +51,7 @@ if (SERVER) then
 					return
 				end
 
-				local result = commandTable.onRun(client, arguments)
+				local result = commandTable.onRun(client, arguments, starArg)
 
 				if (result == false) then
 					echo = true
@@ -127,7 +127,9 @@ if (SERVER) then
 			if (command) then
 				table.remove(arguments, 1)
 
-				local value = nut.command.RunCommand(client, command, arguments, noMsgOnFail)
+				local starArg = table.KeyFromValue(arguments, "*")
+
+				local value = nut.command.RunCommand(client, command, arguments, noMsgOnFail, starArg)
 
 				if (value) then
 					return value

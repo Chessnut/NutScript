@@ -182,7 +182,7 @@ nut.command.Register({
 	adminOnly = true,
 	allowDead = true,
 	syntax = "<string name> <string flag>",
-	onRun = function(client, arguments)
+	onRun = function(client, arguments, starArg)
 		local target = nut.command.FindPlayer(client, arguments[1])
 
 		if (IsValid(target)) then
@@ -192,7 +192,13 @@ nut.command.Register({
 				return
 			end
 
-			target:GiveFlag(arguments[2])
+			if (starArg) then
+				for k, v in pairs(nut.flag.buffer) do
+					target:GiveFlag(k)
+				end
+			else
+				target:GiveFlag(arguments[2])
+			end
 
 			nut.util.Notify(nut.lang.Get("flags_give", client:Name(), arguments[2], target:Name()))
 		end
@@ -203,7 +209,7 @@ nut.command.Register({
 	allowDead = true,
 	adminOnly = true,
 	syntax = "<string name> <string flag>",
-	onRun = function(client, arguments)
+	onRun = function(client, arguments, starArg)
 		local target = nut.command.FindPlayer(client, arguments[1])
 		local flags = table.concat(arguments, " ", 2)
 		local function takeFlag()
@@ -214,7 +220,13 @@ nut.command.Register({
 					return
 				end
 
-				target:TakeFlag(flags)
+				if (starArg) then
+					for k, v in pairs(nut.flag.buffer) do
+						target:TakeFlag(k)
+					end
+				else
+					target:TakeFlag(flags)
+				end
 
 				nut.util.Notify(nut.lang.Get("flags_take", client:Name(), flags, target:Name()))
 			end
