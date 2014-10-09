@@ -327,7 +327,7 @@ nut.lang.Add("model", "Modell", language)
 nut.lang.Add("model_desc", "Hvordan karakteren din framstår i rollespillet.", language)
 
 
-local language = "finnish"
+language = "finnish"
 
 
 nut.lang.Add("schema_author", "Luonut %s.", language)
@@ -402,7 +402,7 @@ nut.lang.Add("gender_desc", "Hahmosi sukupuoli.", language)
 nut.lang.Add("model", "Malli", language)
 nut.lang.Add("model_desc", "Miltä hahmosi näyttää pelissä.", language)
 
-local language = "portuguese"
+language = "portuguese"
 
 nut.lang.Add("schema_author", "Criado por %s.", language)
 nut.lang.Add("create", "Criar", language)
@@ -484,7 +484,7 @@ nut.lang.Add("provide_valid", "Você precisa fornecer um válido", language)
 nut.lang.Add("char_creating", "Seu personagem está sendo criado pelo servidor.", language)
 nut.lang.Add("faction", "Facção", language)
 
-local language = "dutch"
+language = "dutch"
 
 nut.lang.Add("schema_author", "Gemaakt door %s.", language)
 nut.lang.Add("create", "Maak", language)
@@ -509,12 +509,12 @@ nut.lang.Add("char_create_tip", "Vull in alle volgende velden, dan druk op 'Klaa
 nut.lang.Add("char_create_warn", "Je karakte informatie moet passend zijn.", language)
 nut.lang.Add("inv_tip", "Je kan de items in je inventaris gebruiken om op linker muisknop te drukken", language)
 nut.lang.Add("business_tip", "Click op de item(s) onderaan om ze te kopen.", language)
-nut.lang.Add("scoreboard", "Scorebord")
-nut.lang.Add("class_joined", "Je hebt je bij de %s klass aangemeld")
-nut.lang.Add("class_failed", "Je kan je niet bij deze klas aanmelden")
-nut.lang.Add("pay_received", "Jij kreeg een betaling van %s.")
-nut.lang.Add("item_pickup_samechar", "Je kan niet de item van je ander karakter oppaken")
-nut.lang.Add("no_perm_tied", "Je kan dat niet doen als je vastgebonden zit.")
+nut.lang.Add("scoreboard", "Scorebord", language)
+nut.lang.Add("class_joined", "Je hebt je bij de %s klass aangemeld", language)
+nut.lang.Add("class_failed", "Je kan je niet bij deze klas aanmelden", language)
+nut.lang.Add("pay_received", "Jij kreeg een betaling van %s.", language)
+nut.lang.Add("item_pickup_samechar", "Je kan niet de item van je ander karakter oppaken", language)
+nut.lang.Add("no_perm_tied", "Je kan dat niet doen als je vastgebonden zit.", language)
 nut.lang.Add("no", "Nee", language)
 nut.lang.Add("yes", "Ja", language)
 nut.lang.Add("male", "Man", language)
@@ -561,7 +561,7 @@ nut.lang.Add("gender", "Geslacht", language)
 nut.lang.Add("gender_desc", "Je karakter's geslacht.", language)
 nut.lang.Add("model", "Model", language)
 nut.lang.Add("model_desc", "Hoe je karakter eruit ziet in het spel.", language)
-nut.lang.Add("attribs", "Attributen")
-nut.lang.Add("provide_valid", "Je moet een geldige")
-nut.lang.Add("char_creating", "Je karakter word gemaakt door de server.")
-nut.lang.Add("faction", "Factie")
+nut.lang.Add("attribs", "Attributen", language)
+nut.lang.Add("provide_valid", "Je moet een geldige", language)
+nut.lang.Add("char_creating", "Je karakter word gemaakt door de server.", language)
+nut.lang.Add("faction", "Factie", language)
