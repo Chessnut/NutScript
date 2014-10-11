@@ -182,25 +182,37 @@ nut.command.Register({
 	adminOnly = true,
 	allowDead = true,
 	syntax = "<string name> <string flag>",
-	onRun = function(client, arguments, starArg)
-		local target = nut.command.FindPlayer(client, arguments[1])
+	onRun = function(client, arguments, starArgs)
+		local flags = table.concat(arguments, " ", 2)
+		local bufferFlags = nut.command.GetBufferFlags()
 
-		if (IsValid(target)) then
-			if (!arguments[2]) then
-				nut.util.Notify(nut.lang.Get("missing_arg", 2), client)
+		local function handleStarArgsAndGive(player)
+			if (starArgs[2]) then
+				player:GiveFlag(bufferFlags)
 
-				return
-			end
-
-			if (starArg) then
-				for k, v in pairs(nut.flag.buffer) do
-					target:GiveFlag(k)
-				end
+				nut.util.Notify(nut.lang.Get("flags_give", client:Name(), bufferFlags, player:Name()))
 			else
-				target:GiveFlag(arguments[2])
-			end
+				player:GiveFlag(flags)
 
-			nut.util.Notify(nut.lang.Get("flags_give", client:Name(), arguments[2], target:Name()))
+				nut.util.Notify(nut.lang.Get("flags_give", client:Name(), flags, player:Name()))
+			end
+		end
+
+		if (starArgs[1]) then
+			for k, v in pairs(player.GetAll()) do
+				handleStarArgsAndGive(v)
+			end
+		else
+			local target = nut.command.FindPlayer(client, arguments[1])
+			if (IsValid(target)) then
+				if (!arguments[2]) then
+					nut.util.Notify(nut.lang.Get("missing_arg", 2), client)
+
+					return
+				end
+
+				handleStarArgsAndGive(target)
+			end
 		end
 	end
 }, "flaggive")
@@ -209,26 +221,38 @@ nut.command.Register({
 	allowDead = true,
 	adminOnly = true,
 	syntax = "<string name> <string flag>",
-	onRun = function(client, arguments, starArg)
-		local target = nut.command.FindPlayer(client, arguments[1])
+	onRun = function(client, arguments, starArgs)
 		local flags = table.concat(arguments, " ", 2)
+		local bufferFlags = nut.command.GetBufferFlags()
+
+		local function handleStarArgsAndTake(player)
+			if (starArgs[2]) then
+				player:TakeFlag(bufferFlags)
+
+				nut.util.Notify(nut.lang.Get("flags_take", client:Name(), bufferFlags, player:Name()))
+			else
+				player:TakeFlag(flags)
+				
+				nut.util.Notify(nut.lang.Get("flags_take", client:Name(), flags, player:Name()))
+			end
+		end
+
 		local function takeFlag()
-			if (IsValid(target)) then
-				if (!flags) then
-					nut.util.Notify(nut.lang.Get("missing_arg", 2), client)
-
-					return
+			if (starArgs[1]) then
+				for k, v in pairs(player.GetAll()) do
+					handleStarArgsAndTake(v)
 				end
+			else
+				local target = nut.command.FindPlayer(client, arguments[1])
+				if (IsValid(target)) then
+					if (!flags) then
+						nut.util.Notify(nut.lang.Get("missing_arg", 2), client)
 
-				if (starArg) then
-					for k, v in pairs(nut.flag.buffer) do
-						target:TakeFlag(k)
+						return
 					end
-				else
-					target:TakeFlag(flags)
-				end
 
-				nut.util.Notify(nut.lang.Get("flags_take", client:Name(), flags, target:Name()))
+					handleStarArgsAndTake(target)
+				end
 			end
 		end
 
@@ -359,7 +383,7 @@ nut.command.Register({
 					end
 				end
 
-				nut.db.Query("DELETE FROM "..nut.config.dbTable.." WHERE steamid = "..(target:SteamID64() or 0).." AND id = "..nut.db.Escpae(index)..sameSchema(), function(data)
+				nut.db.Query("DELETE FROM "..nut.config.dbTable.." WHERE steamid = "..(target:SteamID64() or 0).." AND id = "..nut.db.Escape(index)..sameSchema(), function(data)
 					if (IsValid(target) and target.character and target.character.index == index) then
 						if (target.nut_CachedChars) then
 							target.nut_CachedChars[target.character.index] = nil
