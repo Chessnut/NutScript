@@ -29,6 +29,7 @@ local AMMO_TYPES = {
 
 function PLUGIN:CharacterSave(client)
 	local ammo = {}
+	local weapon = client:GetActiveWeapon()
 		for k, v in pairs(AMMO_TYPES) do
 			local count = client:GetAmmoCount(v)
 
@@ -37,12 +38,18 @@ function PLUGIN:CharacterSave(client)
 			end
 		end
 	client.character:SetData("ammo", ammo)
+	client.character:SetData("clip1", weapon:Clip1())
 end
 
 function PLUGIN:PlayerFirstLoaded(client)
 	client:RemoveAllAmmo()
 
 	local ammo = client.character:GetData("ammo")
+	local weapon = client:GetActiveWeapon()
+
+	if (IsValid(weapon)) then
+		weapon:SetClip1(client.character:GetData("clip1"))
+	end
 
 	if (ammo) then
 		for ammoType, amount in pairs(ammo) do
