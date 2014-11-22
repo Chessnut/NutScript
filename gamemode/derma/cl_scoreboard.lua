@@ -155,10 +155,13 @@ local PANEL = {}
 		self.player = client
 
 		local recognized = hook.Run("IsPlayerRecognized", client)
-		local name = client:Name()
-		local model = client:GetModel()
+		local name = ""
+		local model = ""
 
-		if (!recognized) then
+		if (recognized) then
+			name = hook.Run("GetPlayerName",client,"scoreboard")
+			model = client:GetModel()
+		else
 			name = hook.Run("GetUnknownPlayerName", client) or "Unknown"
 			model = "models/player/skeleton.mdl"
 		end
