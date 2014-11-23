@@ -49,9 +49,11 @@ local PANEL = {}
 
 		for k, v in pairs(LocalPlayer():GetInventory()) do
 			local itemTable = nut.item.Get(k)
-
-			categories[itemTable.category] = categories[itemTable.category] or {}
-			table.insert(categories[itemTable.category], {k, v, itemTable.name})
+			
+			if (itemTable) then
+				categories[itemTable.category] = categories[itemTable.category] or {}
+				table.insert(categories[itemTable.category], {k, v, itemTable.name})
+			end
 		end
 
 		for _, items2 in SortedPairs(categories) do
