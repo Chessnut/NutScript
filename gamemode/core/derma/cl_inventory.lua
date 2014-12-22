@@ -366,7 +366,7 @@ PANEL = {}
 									if (send != false) then
 										netstream.Start("invAct", k, itemTable.id, self.invID)
 									end
-								end):SetImage(itemTable.icon or "icon16/brick.png")
+								end):SetImage(v.icon or "icon16/brick.png")
 							end
 						menu:Open()
 					itemTable.client = nil
@@ -400,13 +400,13 @@ PANEL = {}
 vgui.Register("nutInventory", PANEL, "DFrame")
 
 hook.Add("CreateMenuButtons", "nutInventory", function(tabs)
-	tabs["inv"] = function(panel)		
-		nut.gui.inv1 = panel:Add("nutInventory")
-
+	tabs["inv"] = function(panel)	
+		local inventoryPanel = panel:Add("nutInventory")	
 		local inventory = LocalPlayer():getChar():getInv()
 
 		if (inventory) then
-			nut.gui.inv1:setInventory(inventory)
+			inventoryPanel:setInventory(inventory)
+			nut.gui["inv"..inventory:getID()] = inventoryPanel
 		end
 	end
 end)
