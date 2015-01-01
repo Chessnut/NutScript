@@ -202,7 +202,7 @@ if (SERVER) then
 		end
 
 		local encoded = von.serialize(value)
-		local map = game.GetMap()
+		local map = string.lower(game.GetMap())
 
 		if (!global) then
 			if (ignoreMap) then
@@ -229,7 +229,7 @@ if (SERVER) then
 		encoded data and cache it. If it does exist, then the cached copy will be returned.
 	--]]
 	function nut.util.ReadTable(uniqueID, ignoreMap, forceRefresh)
-		local map = game.GetMap()
+		local map = string.lower(game.GetMap())
 
 		if (!forceRefresh and nut.util.cachedTable[uniqueID]) then
 			return nut.util.cachedTable[uniqueID]
