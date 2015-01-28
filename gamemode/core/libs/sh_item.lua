@@ -137,9 +137,15 @@ function nut.item.register(uniqueID, baseID, isBaseItem, path, luaGenerated)
 
 						return false
 					else
-						if (item.data) then -- I don't like it but, meh...
-							for k, v in pairs(item.data) do
+						if (item.entity) then
+							for k, v in pairs(item.entity:getDataTable()) do
 								item:setData(k, v)
+							end
+						else
+							if (item.data) then -- I don't like it but, meh...
+								for k, v in pairs(item.data) do
+									item:setData(k, v)
+								end
 							end
 						end
 					end
