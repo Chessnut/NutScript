@@ -3,12 +3,12 @@ NutScript
 
 A free role-play framework for Garry's Mod. Please note that this version is under development and should only be used for developing a schema early, or assisting with development on the schema.
 
-#### Check out the official website @ http://chessnut.info/
+#### Check out the official website @ http://nutscript.rocks/
 
 Installation
 =========
 
-Installation instructions can be found on the wiki. (http://chessnut.info/wiki)
+Installation instructions can be found on the wiki. (https://github.com/Chessnut/NutScript/wiki)
 
 Pull Requests
 =========
@@ -18,4 +18,4 @@ Pull requests are open to be accepted. Please make sure that they are tested and
 License
 =========
 
-This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported license. To get a brief understanding of what that means, visit this URL: http://www.tldrlegal.com/l/CC-NC-SA
+This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported license. To get a brief understanding of what that means, visit this URL: https://tldrlegal.com/license/creative-commons-attribution-noncommercial-sharealike-(cc-nc-sa)
