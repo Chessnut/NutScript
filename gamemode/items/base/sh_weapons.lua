@@ -141,7 +141,7 @@ ITEM.functions.Equip = {
 
 function ITEM:onCanBeTransfered(oldInventory, newInventory)
 	if (self:getData("equip")) then
-		return newInventory:getID() == 0
+		return false
 	end
 
 	return true
