@@ -135,3 +135,9 @@ function ENT:getData(key, default)
 
 	return data[key] or default
 end
+
+function ENT:getDataTable()
+	local data = self:getNetVar("data", {})
+
+	return data
+end
