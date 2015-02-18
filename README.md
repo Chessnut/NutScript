@@ -1,6 +1,8 @@
 NutScript
 =========
 
+[![Join the chat at https://gitter.im/Chessnut/NutScript](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Chessnut/NutScript?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A free role-play framework for Garry's Mod. Please note that this version is under development and should only be used for developing a schema early, or assisting with development on the schema.
 
 #### Check out the official website @ http://nutscript.rocks/
