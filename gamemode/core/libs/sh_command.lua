@@ -119,6 +119,48 @@ function nut.command.extractArgs(text)
 	return arguments
 end
 
+-- Function to check if player got access to specific command
+function nut.command:hasAccess(client, cmd)
+	for k,data in pairs(nut.command.list) do
+		if k == cmd then
+			if (data.adminOnly) then
+				if (client:IsAdmin()) then
+					return true
+				else
+					return false
+				end
+			-- Or if it is only for super administrators.
+			elseif (data.superAdminOnly) then
+				if (client:IsSuperAdmin()) then
+					return true
+				else
+					return false
+				end
+			-- Or if we specify a usergroup allowed to use this.
+			elseif (data.group) then
+				-- The group property can be a table of usergroups.
+				if (type(data.group) == "table") then
+					-- Check if the client's group is allowed.
+					for k, v in ipairs(data.group) do
+						if (client:IsUserGroup(v)) then
+							return true
+						end
+					end
+
+					return false
+				-- Otherwise it is most likely a string.
+				else
+					if (client:IsUserGroup(data.group)) then
+						return true
+					else
+						return false
+					end
+				end
+			end
+		end
+	end
+end
+
 if (SERVER) then
 	-- Finds a player or gives an error notification.
 	function nut.command.findPlayer(client, name)
