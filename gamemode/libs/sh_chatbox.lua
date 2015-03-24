@@ -231,6 +231,10 @@ if (CLIENT) then
 
 	hook.Add("ChatTextChanged", "nut_Typing", function(text)
 		if (nut.config.showTypingText) then
+			if (string.sub(text, 1, 3) == "/pm") then
+				text = "PM..."
+			end
+
 			if (nextSend < CurTime()) then
 				netstream.Start("nut_Typing", text)
 				nextSend = CurTime() + 0.25
