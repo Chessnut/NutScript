@@ -415,3 +415,6 @@ function playerMeta:IsTyping()
 	
 	return typing and typing != ""
 end
+
+-- Why does ULX even have a /me command?
+hook.Remove("PlayerSay", "ULXMeCheck")
