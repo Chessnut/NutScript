@@ -45,20 +45,27 @@ modules.sqlite = {
 modules.tmysql4 = {
 	query = function(query, callback)
 		if (nut.db.object) then
-			nut.db.object:Query(query, function(data, status, lastID)
-				if (status == QUERY_SUCCESS) then
+			nut.db.object:Query(query, function(result)
+				local firstRow = result[1]
+				if (firstRow.status) then
 					if (callback) then
-						callback(data, lastID)
+						callback(firstRow.data, firstRow.lastid)
 					end
 				else
 					file.Write("nut_queryerror.txt", query)
-					ThrowQueryFault(query, lastID)
+					ThrowQueryFault(query, firstRow.error)
 				end
-			end, 3)
+			end)
 		end
 	end,
 	escape = function(value)
-		return tmysql and tmysql.escape(value) or sql.SQLStr(value, true)
+		local object = nut.db.object
+
+		if (object) then
+			return object:Escape(value)
+		else
+			return sql.SQLStr(value, true)
+		end
 	end,
 	connect = function(callback)
 		if (!pcall(require, "tmysql4")) then
