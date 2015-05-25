@@ -579,7 +579,7 @@ do
 			end
 		end)
 
-		netstream.Hook("invAct", function(client, action, item, invID)
+		netstream.Hook("invAct", function(client, action, item, invID, clientData)
 			local character = client:getChar()
 
 			if (!character) then
@@ -627,18 +627,28 @@ do
 
 			if (item.entity) then
 				if (item.entity:GetPos():Distance(client:GetPos()) > 96) then
+					item.entity = nil
+					item.player = nil
+
 					return
 				end
 			elseif (!inventory:getItemByID(item.id)) then
+				item.player = nil
+	
 				return
 			end
 
 			local callback = item.functions[action]
 
 			if (callback) then
+				if (istable(clientData)) then
+					item.clientData = clientData
+				end
+
 				if (callback.onCanRun and callback.onCanRun(item) == false) then
 					item.entity = nil
 					item.player = nil
+					item.clientData = nil
 
 					return
 				end
@@ -660,6 +670,7 @@ do
 
 				item.entity = nil
 				item.player = nil
+				item.clientData = nil
 			end
 		end)
 	end
