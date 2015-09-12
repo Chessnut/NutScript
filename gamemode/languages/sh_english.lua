@@ -1,17 +1,4 @@
---[[
-    NutScript is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
 
-    NutScript is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with NutScript.  If not, see <http://www.gnu.org/licenses/>.
---]]
 NAME = "English"
 
 LANGUAGE = {
@@ -210,12 +197,12 @@ LANGUAGE = {
 	vmSet = "You have set your voicemail.",
 	vmRem = "You have removed your voicemail.",
 	altLower = "Hide hands when lowered?",
-    	noPerm = "You are not allowed to do this.",
+    noPerm = "You are not allowed to do this.",
 	youreDead = "You are Dead",
 	injMajor = "Seems critically injured.",
 	injLittle = "Seems injured",
-	toggleESP = "Toggle Admin ESP",
 	toggleObserverTP = "Toggle Observer teleport",
+	toggleESP = "Toggle Admin ESP",
 	chgName = "Change Name",
 	chgNameDesc = "Enter the character's new name below.",
 	thirdpersonToggle = "Toggle Thirdperson",
@@ -229,5 +216,19 @@ LANGUAGE = {
 	restricted = "You have been restrained.",
 	viewProfile = "View Steam Profile",
 	salary = "You have received %s from your salary.",
-	noRecog = "You do not recognize this person."
+	noRecog = "You do not recognize this person.",
+	curTime = "The current time is %s.",
+	vendorEditor = "Vendor Editor",
+	edit = "Edit",
+	disable = "Disable",
+	vendorPriceReq = "Enter the new price for this item.",
+	vendorEditCurStock = "Edit Current Stock",
+	you = "You",
+	vendorSellScale = "Sell price scale",
+	vendorNoTrade = "You are not able to trade with this vendor.",
+	vendorNoMoney = "This vendor can not afford that item.",
+	vendorNoStock = "This vendor does not have that item in stock.",
+	contentTitle = "NutScript Content Missing",
+	contentWarning = "You do not have the NutScript content mounted. This may result in certain features missing.\nWould you like to open the Workshop page for the NutScript content?",
+	flags = "Flags"
 }
