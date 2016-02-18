@@ -44,7 +44,7 @@ if (CLIENT) then
 		using nut:PaintBar(). It returns the y of the next bar that is to be drawn.
 	--]]
 	function nut.bar.Paint(x, y, width, height)
-		for k, v in SortedPairsByMemberValue(nut.bar.buffer, "id", true) do
+		for k, v in pairs(nut.bar.buffer, "id", true) do
 			if (hook.Run("HUDShouldPaintBar", k) != false and v.getValue) then
 				local realValue = v.getValue()
 
