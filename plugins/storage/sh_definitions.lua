@@ -44,6 +44,19 @@ PLUGIN.definitions["models/props_c17/furniturefridge001a.mdl"] = {
 	height = 3,
 }
 
+PLUGIN.definitions["models/props_wasteland/kitchen_fridge001a.mdl"] = {
+	name = "Large Refrigerator",
+	desc = "A large metal fox for storing even more food in.",
+	width = 4,
+	height = 5,
+}
+PLUGIN.definitions["models/props_junk/trashbin01a.mdl"] = {
+	name = "Trash Bin",
+	desc = "What do you expect to find in here?",
+	width = 1,
+	height = 2,
+}
+
 PLUGIN.definitions["models/items/ammocrate_smg1.mdl"] = {
 	name = "Ammo Crate",
 	desc = "A Heavy Crate that stores ammo",
