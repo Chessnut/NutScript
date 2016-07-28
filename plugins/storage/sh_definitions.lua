@@ -37,7 +37,7 @@ PLUGIN.definitions["models/props_wasteland/controlroom_filecabinet002a.mdl"] = {
 	height = 4,
 }
 
-PLUGIN.definitons["models/props_c17/furniturefridge001a.mdl"] = {
+PLUGIN.definitions["models/props_c17/furniturefridge001a.mdl"] = {
 	name = "Refrigerator",
 	desc = "A metal box for keeping food in.",
 	width = 2,
@@ -47,7 +47,7 @@ PLUGIN.definitons["models/props_c17/furniturefridge001a.mdl"] = {
 PLUGIN.definitions["models/items/ammocrate_smg1.mdl"] = {
 	name = "Ammo Crate",
 	desc = "A Heavy Crate that stores ammo",
-	width = 5,
+	width = 4,
 	height = 3,
 	onOpen = function(entity, activator)
 		local seq = entity:LookupSequence("Close")
