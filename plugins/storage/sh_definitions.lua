@@ -18,14 +18,14 @@ PLUGIN.definitions["models/props_junk/wood_crate001a.mdl"] = {
 
 PLUGIN.definitions["models/props_c17/lockers001a.mdl"] = {
 	name = "Locker",
-	desc = "A White Locker.",
+	desc = "A hite Locker.",
 	width = 3,
 	height = 5,
 }
 
 PLUGIN.definitions["models/props_wasteland/controlroom_storagecloset001a.mdl"] = {
 	name = "Metal Cabinet",
-	desc = "A Metal Cabinet",
+	desc = "A green metal cabinet.",
 	width = 4,
 	height = 5,
 }
@@ -35,6 +35,13 @@ PLUGIN.definitions["models/props_wasteland/controlroom_filecabinet002a.mdl"] = {
 	desc = "A Metal Filing Cabinet",
 	width = 2,
 	height = 4,
+}
+
+PLUGIN.definitons["models/props_c17/furniturefridge001a.mdl"] = {
+	name = "Refrigerator",
+	desc = "A metal box for keeping food in.",
+	width = 2,
+	height = 3,
 }
 
 PLUGIN.definitions["models/items/ammocrate_smg1.mdl"] = {
