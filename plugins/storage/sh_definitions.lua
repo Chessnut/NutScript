@@ -18,7 +18,7 @@ PLUGIN.definitions["models/props_junk/wood_crate001a.mdl"] = {
 
 PLUGIN.definitions["models/props_c17/lockers001a.mdl"] = {
 	name = "Locker",
-	desc = "A hite Locker.",
+	desc = "A white Locker.",
 	width = 3,
 	height = 5,
 }
