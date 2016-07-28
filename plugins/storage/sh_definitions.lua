@@ -18,7 +18,7 @@ PLUGIN.definitions["models/props_junk/wood_crate001a.mdl"] = {
 
 PLUGIN.definitions["models/props_c17/lockers001a.mdl"] = {
 	name = "Locker",
-	desc = "A white Locker.",
+	desc = "A white locker.",
 	width = 3,
 	height = 5,
 }
@@ -32,7 +32,7 @@ PLUGIN.definitions["models/props_wasteland/controlroom_storagecloset001a.mdl"] =
 
 PLUGIN.definitions["models/props_wasteland/controlroom_filecabinet002a.mdl"] = {
 	name = "File Cabinet",
-	desc = "A Metal Filing Cabinet",
+	desc = "A metal filing cabinet.",
 	width = 2,
 	height = 4,
 }
