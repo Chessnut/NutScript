@@ -94,6 +94,8 @@ do
           break
         end
       end
+
+			predictedNumeric = predictedNumeric - 1
     else
       predictedNumeric = nil
     end
