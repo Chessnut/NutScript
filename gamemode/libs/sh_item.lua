@@ -768,7 +768,7 @@ do
 
 			local menu = DermaMenu()
 				for k, v in SortedPairs(itemTable.functions) do
-					if (v.shouldDisplay and v.shouldDisplay(itemTable, item.data) == false) then
+					if (v.shouldDisplay and v.shouldDisplay(itemTable, item.data, LocalPlayer()) == false) then
 						continue
 					end
 
