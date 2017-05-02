@@ -311,6 +311,12 @@ function GM:PlayerSpawnVehicle(client, model, name, data)
 	return false
 end
 
+function GM:PlayerSpawnSWEP(client, class, info)
+	if (!client:IsAdmin()) then
+		return false
+	end
+end
+
 -- Called when weapons should be given to a player.
 function GM:PlayerLoadout(client)
 	if (client.nutSkipLoadout) then
