@@ -18,12 +18,13 @@ function ITEM:getID()
 end
 
 function ITEM:getDesc()
+	if (!self.desc) then return "ERROR" end
+	
 	if (type(self.desc) == "function") then
-		print(self)
 		return "ERROR"
 	end
-
-	return CLIENT and L(self.desc or "noDesc") or self.desc
+	
+	return self.desc
 end
 
 -- Dev Buddy. You don't have to print the item data with PrintData();
@@ -88,7 +89,6 @@ function ITEM:setData(key, value, receivers, noSave, noCheckEntity)
 	if (SERVER) then
 		if (!noCheckEntity) then
 			local ent = self:getEntity()
-
 			if (IsValid(ent)) then
 				local data = ent:getNetVar("data", {})
 				data[key] = value
@@ -112,6 +112,8 @@ function ITEM:setData(key, value, receivers, noSave, noCheckEntity)
 end
 
 function ITEM:getData(key, default)
+	self.data = self.data or {}
+
 	if (self.data) then
 		if (key == true) then
 			return self.data
@@ -137,12 +139,16 @@ function ITEM:getData(key, default)
 		return default
 	end
 
+	return
+	/*
 	local itemTable = nut.item.list[self.uniqueID]
 
 	if (itemTable and itemTable.data) then
 		return itemTable.data[key]
 	end
+	*/
 end
+
 
 function ITEM:hook(name, func)
 	if (name) then
@@ -161,21 +167,40 @@ function ITEM:remove()
 	local x2, y2
 
 	if (self.invID > 0 and inv) then
+		local failed = false
 		for x = self.gridX, self.gridX + (self.width - 1) do
 			if (inv.slots[x]) then
 				for y = self.gridY, self.gridY + (self.height - 1) do
 					local item = inv.slots[x][y]
 
-					if (item.id == self.id) then
+					if (item and item.id == self.id) then
 						inv.slots[x][y] = nil
 					else
-						print("ERROR OCCURED INDEX: " .. self.id)
-						print("RECURSIVE x: " .. x .. " y: " .. y)
-						print("REQUESTED ITEM POS x: " .. self.gridX .. " y: " .. self.gridY)
-						return false
+						failed = true
 					end
 				end
 			end
+		end
+
+		if (failed) then
+			local items = inv:getItems()
+
+			inv.slots = {}
+			for k, v in pairs(items) do
+				if (v.invID == inv:getID()) then
+					for x = self.gridX, self.gridX + (self.width - 1) do
+						for y = self.gridY, self.gridY + (self.height - 1) do
+							inv.slots[x][y] = v.id
+						end
+					end
+				end
+			end
+
+			if (IsValid(inv.owner) and inv.owner:IsPlayer()) then
+				inv:sync(inv.owner, true)
+			end
+
+			return false
 		end
 	else
 		local inv = nut.item.inventories[self.invID]
@@ -258,7 +283,7 @@ if (SERVER) then
 	end
 
 	-- Transfers an item to a specific inventory.
-	function ITEM:transfer(invID, x, y, client, noReplication, isLogical)
+	function ITEM:transfer(invID, x, y, client, noReplication, isLogical)		
 		invID = invID or 0
 		
 		if (self.invID == invID) then
@@ -314,6 +339,7 @@ if (SERVER) then
 						if (self.onTransfered) then
 							self:onTransfered(curInv, inventory)
 						end
+						hook.Run("OnItemTransfered", self, curInv, inventory)
 
 						return true
 					elseif (self.invID > 0 and prevID == 0) then
@@ -323,6 +349,7 @@ if (SERVER) then
 						if (self.onTransfered) then
 							self:onTransfered(curInv, inventory)
 						end
+						hook.Run("OnItemTransfered", self, curInv, inventory)
 
 						return true
 					end
@@ -344,6 +371,7 @@ if (SERVER) then
 					if (self.onTransfered) then
 						self:onTransfered(curInv, inventory)
 					end
+					hook.Run("OnItemTransfered", self, curInv, inventory)
 						
 					return true
 				end

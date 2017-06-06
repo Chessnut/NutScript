@@ -36,7 +36,7 @@ function PANEL:setItem(itemTable)
 	self.icon:DockMargin(5, 5, 5, 10)
 	self.icon:InvalidateLayout(true)
 	self.icon:SetModel(itemTable.model, itemTable.skin or 0)
-	self.icon:SetToolTip(L(itemTable:getDesc()))
+	self.icon:SetToolTip(itemTable:getDesc() or "")
 	self.icon.DoClick = function(this)
 		if (!IsValid(nut.gui.checkout) and (this.nextClick or 0) < CurTime()) then
 			local parent = nut.gui.business
@@ -100,8 +100,10 @@ function PANEL:Init()
 	self.search.OnTextChanged = function(this)
 		local text = self.search:GetText():lower()
 
-		self:loadItems(self.selected.category, text:find("%S") and text or nil)
-		self.scroll:InvalidateLayout()
+		if (self.selected) then
+			self:loadItems(self.selected.category, text:find("%S") and text or nil)
+			self.scroll:InvalidateLayout()
+		end
 	end
 	self.search.PaintOver = function(this, cw, ch)
 		if (self.search:GetValue() == "" and !self.search:HasFocus()) then
@@ -110,8 +112,8 @@ function PANEL:Init()
 	end
 
 	self.itemList = self.scroll:Add("DIconLayout")
-	self.itemList:Dock(FILL)
-	self.itemList:DockMargin(10, 5, 5, 5)
+	self.itemList:Dock(TOP)
+	self.itemList:DockMargin(10, 1, 5, 5)
 	self.itemList:SetSpaceX(10)
 	self.itemList:SetSpaceY(10)
 	self.itemList:SetMinimumSize(128, 400)
@@ -165,6 +167,9 @@ function PANEL:Init()
 			if (self.selected != this) then
 				self.selected = this
 				self:loadItems(realName)
+				timer.Simple(0.01, function() 
+				self.scroll:InvalidateLayout()
+end)
 			end
 		end
 		button.category = realName
@@ -235,7 +240,7 @@ PANEL = {}
 
 		nut.gui.checkout = self
 
-		self:SetTitle("Checkout")
+		self:SetTitle(L("checkout", 0))
 		self:SetSize(280, 400)
 		self:MakePopup()
 		self:Center()
@@ -369,9 +374,9 @@ PANEL = {}
 			end
 		end
 
-		self.current:SetText("Your Money: "..nut.currency.get(money))
+		self.current:SetText(L"currentMoney"..nut.currency.get(money))
 		self.total:SetText("- "..nut.currency.get(price))
-		self.final:SetText("Money Left: "..nut.currency.get(money - price))
+		self.final:SetText(L"moneyLeft"..nut.currency.get(money - price))
 		self.final:SetTextColor((money - price) >= 0 and Color(46, 204, 113) or Color(217, 30, 24))
 
 		self.preventBuy = (money - price) < 0 or valid == 0
@@ -393,7 +398,7 @@ PANEL = {}
 				slot.icon:SetPos(2, 2)
 				slot.icon:SetSize(32, 32)
 				slot.icon:SetModel(itemTable.model)
-				slot.icon:SetToolTip(L(itemTable:getDesc()))
+				slot.icon:SetToolTip(itemTable:getDesc() or "")
 
 				slot.name = slot:Add("DLabel")
 				slot.name:SetPos(40, 2)
@@ -436,9 +441,9 @@ PANEL = {}
 vgui.Register("nutBusinessCheckout", PANEL, "DFrame")
 
 hook.Add("CreateMenuButtons", "nutBusiness", function(tabs)
-	tabs["business"] = function(panel)
-		if (hook.Run("BuildBusinessMenu", panel) != false) then
-			panel:Add("nutBusiness")
+	if (hook.Run("BuildBusinessMenu", panel) != false) then
+		tabs["business"] = function(panel)
+				panel:Add("nutBusiness")
 		end
 	end
 end)

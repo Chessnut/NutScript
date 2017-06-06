@@ -4,12 +4,13 @@ renderdIcons = renderdIcons or {}
 -- To make making inventory variant, This must be followed up.
 function renderNewIcon(panel, itemTable)
 	-- re-render icons
-	if ((itemTable.iconCam and !renderdIcons[string.lower(itemTable.model)]) or itemTable.forceRender) then
+	if (itemTable.iconCam) then
+	--if ((itemTable.iconCam and !renderdIcons[string.lower(itemTable.model)]) or itemTable.forceRender) then
 		local iconCam = itemTable.iconCam
 		iconCam = {
 			cam_pos = iconCam.pos,
-			cam_fov = iconCam.fov,
 			cam_ang = iconCam.ang,
+			cam_fov = iconCam.fov,
 		}
 		renderdIcons[string.lower(itemTable.model)] = true
 		
@@ -66,6 +67,7 @@ PANEL = {}
 	function PANEL:Init()
 		self:ShowCloseButton(false)
 		self:SetDraggable(true)
+		self:Center()
 		self:MakePopup()
 		self:SetTitle(L"inv")
 
@@ -79,6 +81,16 @@ PANEL = {}
 					v:Remove()
 				end
 			end
+		end
+	end
+
+	function PANEL:viewOnly()
+		self.viewOnly = true
+
+		for id, icon in pairs(self.panels) do
+			icon.OnMousePressed = nil
+			icon.OnMouseReleased = nil
+			icon.doRightClick = nil
 		end
 	end
 
@@ -102,7 +114,13 @@ PANEL = {}
 						local icon = self:addIcon(item.model or "models/props_junk/popcan01a.mdl", x, y, item.width, item.height)
 
 						if (IsValid(icon)) then
-							icon:SetToolTip("Item #"..item.id.."\n"..L("itemInfo", L(item.name), L(item:getDesc())))
+							local newTooltip = hook.Run("OverrideItemTooltip", self, data, item)
+
+							if (newTooltip) then
+								icon:SetToolTip(newTooltip)
+							else
+								icon:SetToolTip("Item #"..item.id.."\n"..L("itemInfo", L(item.name), item:getDesc() or ""))
+							end
 							icon.itemID = item.id
 
 							self.panels[item.id] = icon
@@ -199,10 +217,18 @@ PANEL = {}
 		local inventory = nut.item.inventories[oldInventory.invID]
 		local inventory2 = nut.item.inventories[self.invID]
 		local item
-
+		
 		if (inventory) then
 			item = inventory:getItemAt(oldX, oldY)
+			
+			if (!item) then
+				return false
+			end
 
+			if (hook.Run("CanItemBeTransfered", item, nut.item.inventories[oldInventory.invID], nut.item.inventories[self.invID]) == false) then
+				return false, "notAllowed"
+			end
+		
 			if (item.onCanBeTransfered and item:onCanBeTransfered(inventory, inventory != inventory2 and inventory2 or nil) == false) then
 				return false
 			end
@@ -294,12 +320,62 @@ PANEL = {}
 					end
 				end
 			end
+
 			panel.OnMousePressed = function(this, code)
 				if (code == MOUSE_LEFT) then
-					this:DragMousePress(code)
-					this:MouseCapture(true)
+					if (input.IsKeyDown(KEY_LCONTROL) or input.IsKeyDown(KEY_RCONTROL)) then
+						local func = itemTable.functions
 
-					nut.item.held = this
+						if (func) then
+							local use
+							local comm
+							for k, v in pairs(USABLE_FUNCS or {}) do
+								comm = v
+								use = func[comm]
+
+								if (use and use.onCanRun) then
+									if (use.onCanRun(itemTable) == false) then
+										continue
+									end
+								end
+
+								if (use) then
+									break
+								end
+							end
+
+							if (!use) then return end
+
+							if (use.onCanRun) then
+								if (use.onCanRun(itemTable) == false) then
+									itemTable.player = nil
+
+									return
+								end
+							end
+
+							itemTable.player = LocalPlayer()
+								local send = true
+
+								if (use.onClick) then
+									send = use.onClick(itemTable)
+								end
+
+								if (use.sound) then
+									surface.PlaySound(use.sound)
+								end
+
+								if (send != false) then
+									netstream.Start("invAct", comm, itemTable.id, self.invID)
+								end
+							itemTable.player = nil
+						end
+					else
+						this:DragMousePress(code)
+						this:MouseCapture(true)
+
+						nut.item.held = this
+					end
 				elseif (code == MOUSE_RIGHT and this.doRightClick) then
 					this:doRightClick()
 				end
@@ -321,7 +397,7 @@ PANEL = {}
 							data = data[inventory]
 							local oldX, oldY = this.gridX, this.gridY
 
-							if (oldX != data.x2 or oldY != data.y2 or inventory != self) then
+							if (oldX != data.x2 or oldY != data.y2 or inventory != self) then									
 								this:move(data, inventory)
 							end
 						end
@@ -332,6 +408,10 @@ PANEL = {}
 				if (itemTable) then
 					itemTable.player = LocalPlayer()
 						local menu = DermaMenu()
+						local override = hook.Run("OnCreateItemInteractionMenu", panel, menu, itemTable)
+						
+						if (override == true) then if (menu.Remove) then menu:Remove() end return end
+
 							for k, v in SortedPairs(itemTable.functions) do
 								if (v.onCanRun) then
 									if (v.onCanRun(itemTable) == false) then
@@ -403,4 +483,10 @@ hook.Add("CreateMenuButtons", "nutInventory", function(tabs)
 			end
 		end
 	end
+end)
+
+hook.Add("PostRenderVGUI", "nutInvHelper", function()
+	local pnl = nut.gui.inv1
+
+	hook.Run("PostDrawInventory", pnl)
 end)
