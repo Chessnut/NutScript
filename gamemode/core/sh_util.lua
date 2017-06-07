@@ -248,7 +248,7 @@ if (CLIENT) then
 	function nut.util.drawText(text, x, y, color, alignX, alignY, font, alpha)
 		color = color or color_white
 
-		return draw.TextShadow({
+		draw.TextShadow({
 			text = text,
 			font = font or "nutGenericFont",
 			pos = {x, y},
@@ -256,6 +256,7 @@ if (CLIENT) then
 			xalign = alignX or 0,
 			yalign = alignY or 0
 		}, 1, alpha or (color.a * 0.575))
+		return surface.GetTextSize(text)
 	end
 
 	-- Wraps text so it does not pass a certain width.
