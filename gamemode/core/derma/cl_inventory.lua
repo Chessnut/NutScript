@@ -400,6 +400,7 @@ hook.Add("CreateMenuButtons", "nutInventory", function(tabs)
 
 			if (inventory) then
 				nut.gui.inv1:setInventory(inventory)
+				nut.gui.inv1:SetPos(ScrW()/3, ScrH()/3)
 			end
 		end
 	end
