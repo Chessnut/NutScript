@@ -58,7 +58,7 @@ else
 	end
 end
 
-function ENT:setAmount(amount)
+function ENT:setAmount()
 	self:setNetVar("amount", amount)
 end
 
