@@ -43,6 +43,9 @@ nut.config.add("oocDelay", 10, "The delay before a player can use OOC chat again
 	data = {min = 0, max = 10000},
 	category = "chat"
 })
+nut.config.add("allowGlobalOOC", true, "Whether or not Global OOC is enabled.", nil, {
+	category = "chat"
+})
 nut.config.add("loocDelay", 0, "The delay before a player can use LOOC chat again in seconds.", nil, {
 	data = {min = 0, max = 10000},
 	category = "chat"
@@ -111,7 +114,9 @@ nut.config.add("defMoney", 0, "The amount of money that players start with.", ni
 nut.config.add("allowVoice", false, "Whether or not voice chat is allowed.", nil, {
 	category = "server"
 })
-nut.config.add("voiceDistance", 600.0, "How far can the voice be heard.", nil, {
+nut.config.add("voiceDistance", 600.0, "How far can the voice be heard.", function(oldValue, newValue)
+	nut.config.squaredVoiceDistance = newValue * newValue
+end, {
 	form = "Float",
 	category = "server",
 	data = {min = 0, max = 5000}
@@ -144,3 +149,6 @@ end, {
 nut.config.add("wepAlwaysRaised", false, "Whether or not weapons are always raised.", nil, {
 	category = "server"
 })
+
+local dist = nut.config.get("voiceDistance")
+nut.config.squaredVoiceDistance = dist * dist
