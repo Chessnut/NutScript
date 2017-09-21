@@ -9,7 +9,7 @@ HOLDTYPE_TRANSLATOR["ar2"] = "smg"
 HOLDTYPE_TRANSLATOR["crossbow"] = "shotgun"
 HOLDTYPE_TRANSLATOR["rpg"] = "shotgun"
 HOLDTYPE_TRANSLATOR["slam"] = "normal"
-HOLDTYPE_TRANSLATOR["grenade"] = "normal"
+HOLDTYPE_TRANSLATOR["grenade"] = "grenade"
 HOLDTYPE_TRANSLATOR["fist"] = "normal"
 HOLDTYPE_TRANSLATOR["melee2"] = "melee"
 HOLDTYPE_TRANSLATOR["passive"] = "normal"
@@ -331,7 +331,11 @@ function GM:CanProperty(client, property, entity)
 end
 
 function GM:PhysgunPickup(client, entity)
-	if (client:IsAdmin()) then
+	if (client:IsSuperAdmin()) then
+		return true
+	end
+	
+	if (client:IsAdmin() and !(entity:IsPlayer() and entity:IsSuperAdmin())) then
 		return true
 	end
 
@@ -405,6 +409,12 @@ end
 
 function GM:CanItemBeTransfered(itemObject, curInv, inventory)
 	if (itemObject and itemObject.isBag) then
+		if (inventory.id != 0 and curInv.id != inventory.id) then
+			if (inventory.vars and inventory.vars.isBag) then
+				return false 
+			end
+		end
+
 		local inventory = nut.item.inventories[itemObject:getData("id")]
 
 		if (inventory) then

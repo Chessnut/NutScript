@@ -587,15 +587,12 @@ end
 
 function GM:PlayerCanHearPlayersVoice(listener, speaker)
 	local allowVoice = nut.config.get("allowVoice")
-	if allowVoice then
-		local listener_pos = listener:GetPos()
-		local speaker_pos = speaker:GetPos()
-		local voice_dis = math.Distance(speaker_pos.x, speaker_pos.y, listener_pos.x, listener_pos.y)
-		if voice_dis > nut.config.get("voiceDistance") then
-			allowVoice = false
-		end
+	
+	if listener:GetPos():DistToSqr(speaker:GetPos()) <= nut.config.squaredVoiceDistance then
+		return false, false
 	end
-	return allowVoice
+	
+	return allowVoice, allowVoice
 end
 
 function GM:OnPhysgunFreeze(weapon, physObj, entity, client)
@@ -608,7 +605,7 @@ function GM:OnPhysgunFreeze(weapon, physObj, entity, client)
 	-- With the jeep we need to pause all of its physics objects
 	-- to stop it spazzing out and killing the server.
 	if (entity:GetClass() == "prop_vehicle_jeep") then
-		local objects = ent:GetPhysicsObjectCount()
+		local objects = entity:GetPhysicsObjectCount()
 
 		for i = 0, objects - 1 do
 			entity:GetPhysicsObjectNum(i):EnableMotion(false)
@@ -692,3 +689,17 @@ netstream.Hook("strReq", function(client, time, text)
 		client.nutStrReqs[time] = nil
 	end
 end)
+
+function GM:GetPreferredCarryAngles(entity)
+	if (entity:GetClass() == "nut_item") then
+		local itemTable = entity:getItemTable()
+
+		if (itemTable) then
+			local preferedAngle = itemTable.preferedAngle
+
+			if (preferedAngle) then -- I don't want to return something
+				return preferedAngle
+			end
+		end
+	end
+end
